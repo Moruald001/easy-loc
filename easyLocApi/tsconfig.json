@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES2022" /* Version du JavaScript généré */,
-    "module": "NodeNext" /* Gestion moderne des modules */,
-    "moduleResolution": "NodeNext",
-    "outDir": "./dist" /* Dossier où le code JS compilé sera envoyé */,
-    "rootDir": "./src" /* Dossier source de votre code TS */,
-    "strict": true /* Active un contrôle de type strict */,
-    "esModuleInterop": true /* Facilite l'import de modules CommonJS */,
-    "skipLibCheck": true /* Accélère la compilation */,
-    "forceConsistentCasingInFileNames": true
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "CommonJS", // ← changer
+    "moduleResolution": "node", // ← changer
+    "target": "ES2023",
+    "ignoreDeprecations": "6.0"
   },
-  "include": ["src/**/*"] /* Compile uniquement ce qui est dans /src */
+  "include": ["src/**/*"]
 }

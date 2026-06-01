@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/core/db/config/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+//// 1. UTILISATEUR (Compte Administrateur)
+/// Table isolée dédiée strictement au contrôle d'accès[cite: 12].
+model Utilisateur {
+  id             String       @id @default(uuid())
+  email        String   @unique 
+  mot_de_passe String    // Empreinte sécurisée du mot de passe haché 
+  nom          String?   // Nom ou pseudonyme d'affichage (Optionnel) 
+  cree_le      DateTime @default(now()) @map("cree le") 
+
+  @@map("UTILISATEUR")
+}
+
+/// 2. APPARTEMENT (Bien Immobilier)
+model Appartement {
+  id             String       @id @default(uuid())
+  nom         String    // ex: "Appartement A", "Studio 1" 
+  description String?   // Notes optionnelles sur le logement 
+  loyer_base  Float     // Montant du loyer par défaut 
+  
+  // Relations
+  locataires  Locataire[] // Relation 1:0..1 
+  paiements   Paiement[]  // Historique des performances financières du bien [cite: 20]
+
+  @@map("APPARTEMENT")
+}
+
+/// 3. LOCATAIRE
+model Locataire {
+  id             String       @id @default(uuid())
+  nom            String  
+  prenom         String  
+  email          String   // Pour l'envoi des reçus [cite: 9]
+  telephone      String  
+  statut_actif   Boolean  // True si le locataire occupe le logement actuellement [cite: 9]
+  
+  // Clé étrangère vers l'appartement [cite: 9]
+  appartement_id String?     @map("appartement_id") 
+  
+  // Relation 1:0..1 -> Un appartement ne peut avoir qu'un seul locataire actif à la fois.
+  // Le modificateur @unique applique la contrainte d'unicité stricte demandée par le MCD.
+  appartement    Appartement? @relation(fields: [appartement_id], references: [id], onDelete: SetNull) 
+
+  // Relations
+  paiements      Paiement[] // Un locataire accumule ses reçus au fil des mois [cite: 18]
+
+  @@map("LOCATAIRE")
+}
+
+/// 4. PAIEMENT (Facture / Quittance)
+model Paiement {
+  id                String   @id @default(uuid())  // Identifiant unique universel (UUID) 
+  periode           String    // Mois concerné au format strict YYYY-MM (ex: "2026-05") 
+  montant_paye      Float     // Montant encaissé réel pour l'historique immuable 
+  date_encaissement DateTime @default(now())  // Date et heure exactes de validation 
+  methode           String    // Mode de règlement (Espèces, Virement, Cheque) 
+  pdf_nom_fichier   String    // Nom ou chemin du fichier PDF stocké sur le serveur 
+
+  // Lien impératif et immuable vers le locataire ayant payé [cite: 10, 19]
+  locataire_id      String      @map("locataire id") 
+  locataire         Locataire @relation(fields: [locataire_id], references: [id], onDelete: Restrict)
+
+  // Lien historique vers l'appartement (Rapports de performances préservés si départ)
+  appartement_id    String      @map("appartement_id") 
+  appartement       Appartement @relation(fields: [appartement_id], references: [id], onDelete: Restrict) 
+
+  @@map("PAIEMENT")
+}
