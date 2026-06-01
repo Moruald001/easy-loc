@@ -17,8 +17,7 @@ datasource db {
 model Utilisateur {
   id             String       @id @default(uuid())
   email        String   @unique 
-  mot_de_passe String    // Empreinte sécurisée du mot de passe haché 
-  nom          String?   // Nom ou pseudonyme d'affichage (Optionnel) 
+  name          String?   // Nom ou pseudonyme d'affichage (Optionnel) 
   cree_le      DateTime @default(now()) @map("cree le") 
 
   @@map("UTILISATEUR")

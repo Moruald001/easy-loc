@@ -28,24 +28,21 @@ export type AggregateUtilisateur = {
 export type UtilisateurMinAggregateOutputType = {
   id: string | null
   email: string | null
-  mot_de_passe: string | null
-  nom: string | null
+  name: string | null
   cree_le: Date | null
 }
 
 export type UtilisateurMaxAggregateOutputType = {
   id: string | null
   email: string | null
-  mot_de_passe: string | null
-  nom: string | null
+  name: string | null
   cree_le: Date | null
 }
 
 export type UtilisateurCountAggregateOutputType = {
   id: number
   email: number
-  mot_de_passe: number
-  nom: number
+  name: number
   cree_le: number
   _all: number
 }
@@ -54,24 +51,21 @@ export type UtilisateurCountAggregateOutputType = {
 export type UtilisateurMinAggregateInputType = {
   id?: true
   email?: true
-  mot_de_passe?: true
-  nom?: true
+  name?: true
   cree_le?: true
 }
 
 export type UtilisateurMaxAggregateInputType = {
   id?: true
   email?: true
-  mot_de_passe?: true
-  nom?: true
+  name?: true
   cree_le?: true
 }
 
 export type UtilisateurCountAggregateInputType = {
   id?: true
   email?: true
-  mot_de_passe?: true
-  nom?: true
+  name?: true
   cree_le?: true
   _all?: true
 }
@@ -151,8 +145,7 @@ export type UtilisateurGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type UtilisateurGroupByOutputType = {
   id: string
   email: string
-  mot_de_passe: string
-  nom: string | null
+  name: string | null
   cree_le: Date
   _count: UtilisateurCountAggregateOutputType | null
   _min: UtilisateurMinAggregateOutputType | null
@@ -180,16 +173,14 @@ export type UtilisateurWhereInput = {
   NOT?: Prisma.UtilisateurWhereInput | Prisma.UtilisateurWhereInput[]
   id?: Prisma.StringFilter<"Utilisateur"> | string
   email?: Prisma.StringFilter<"Utilisateur"> | string
-  mot_de_passe?: Prisma.StringFilter<"Utilisateur"> | string
-  nom?: Prisma.StringNullableFilter<"Utilisateur"> | string | null
+  name?: Prisma.StringNullableFilter<"Utilisateur"> | string | null
   cree_le?: Prisma.DateTimeFilter<"Utilisateur"> | Date | string
 }
 
 export type UtilisateurOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  mot_de_passe?: Prisma.SortOrder
-  nom?: Prisma.SortOrderInput | Prisma.SortOrder
+  name?: Prisma.SortOrderInput | Prisma.SortOrder
   cree_le?: Prisma.SortOrder
 }
 
@@ -199,16 +190,14 @@ export type UtilisateurWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UtilisateurWhereInput | Prisma.UtilisateurWhereInput[]
   OR?: Prisma.UtilisateurWhereInput[]
   NOT?: Prisma.UtilisateurWhereInput | Prisma.UtilisateurWhereInput[]
-  mot_de_passe?: Prisma.StringFilter<"Utilisateur"> | string
-  nom?: Prisma.StringNullableFilter<"Utilisateur"> | string | null
+  name?: Prisma.StringNullableFilter<"Utilisateur"> | string | null
   cree_le?: Prisma.DateTimeFilter<"Utilisateur"> | Date | string
 }, "id" | "email">
 
 export type UtilisateurOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  mot_de_passe?: Prisma.SortOrder
-  nom?: Prisma.SortOrderInput | Prisma.SortOrder
+  name?: Prisma.SortOrderInput | Prisma.SortOrder
   cree_le?: Prisma.SortOrder
   _count?: Prisma.UtilisateurCountOrderByAggregateInput
   _max?: Prisma.UtilisateurMaxOrderByAggregateInput
@@ -221,88 +210,77 @@ export type UtilisateurScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UtilisateurScalarWhereWithAggregatesInput | Prisma.UtilisateurScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Utilisateur"> | string
   email?: Prisma.StringWithAggregatesFilter<"Utilisateur"> | string
-  mot_de_passe?: Prisma.StringWithAggregatesFilter<"Utilisateur"> | string
-  nom?: Prisma.StringNullableWithAggregatesFilter<"Utilisateur"> | string | null
+  name?: Prisma.StringNullableWithAggregatesFilter<"Utilisateur"> | string | null
   cree_le?: Prisma.DateTimeWithAggregatesFilter<"Utilisateur"> | Date | string
 }
 
 export type UtilisateurCreateInput = {
   id?: string
   email: string
-  mot_de_passe: string
-  nom?: string | null
+  name?: string | null
   cree_le?: Date | string
 }
 
 export type UtilisateurUncheckedCreateInput = {
   id?: string
   email: string
-  mot_de_passe: string
-  nom?: string | null
+  name?: string | null
   cree_le?: Date | string
 }
 
 export type UtilisateurUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  mot_de_passe?: Prisma.StringFieldUpdateOperationsInput | string
-  nom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cree_le?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UtilisateurUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  mot_de_passe?: Prisma.StringFieldUpdateOperationsInput | string
-  nom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cree_le?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UtilisateurCreateManyInput = {
   id?: string
   email: string
-  mot_de_passe: string
-  nom?: string | null
+  name?: string | null
   cree_le?: Date | string
 }
 
 export type UtilisateurUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  mot_de_passe?: Prisma.StringFieldUpdateOperationsInput | string
-  nom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cree_le?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UtilisateurUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  mot_de_passe?: Prisma.StringFieldUpdateOperationsInput | string
-  nom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cree_le?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UtilisateurCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  mot_de_passe?: Prisma.SortOrder
-  nom?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   cree_le?: Prisma.SortOrder
 }
 
 export type UtilisateurMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  mot_de_passe?: Prisma.SortOrder
-  nom?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   cree_le?: Prisma.SortOrder
 }
 
 export type UtilisateurMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  mot_de_passe?: Prisma.SortOrder
-  nom?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   cree_le?: Prisma.SortOrder
 }
 
@@ -323,36 +301,32 @@ export type DateTimeFieldUpdateOperationsInput = {
 export type UtilisateurSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
-  mot_de_passe?: boolean
-  nom?: boolean
+  name?: boolean
   cree_le?: boolean
 }, ExtArgs["result"]["utilisateur"]>
 
 export type UtilisateurSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
-  mot_de_passe?: boolean
-  nom?: boolean
+  name?: boolean
   cree_le?: boolean
 }, ExtArgs["result"]["utilisateur"]>
 
 export type UtilisateurSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
-  mot_de_passe?: boolean
-  nom?: boolean
+  name?: boolean
   cree_le?: boolean
 }, ExtArgs["result"]["utilisateur"]>
 
 export type UtilisateurSelectScalar = {
   id?: boolean
   email?: boolean
-  mot_de_passe?: boolean
-  nom?: boolean
+  name?: boolean
   cree_le?: boolean
 }
 
-export type UtilisateurOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "mot_de_passe" | "nom" | "cree_le", ExtArgs["result"]["utilisateur"]>
+export type UtilisateurOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "cree_le", ExtArgs["result"]["utilisateur"]>
 
 export type $UtilisateurPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Utilisateur"
@@ -360,8 +334,7 @@ export type $UtilisateurPayload<ExtArgs extends runtime.Types.Extensions.Interna
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     email: string
-    mot_de_passe: string
-    nom: string | null
+    name: string | null
     cree_le: Date
   }, ExtArgs["result"]["utilisateur"]>
   composites: {}
@@ -788,8 +761,7 @@ export interface Prisma__UtilisateurClient<T, Null = never, ExtArgs extends runt
 export interface UtilisateurFieldRefs {
   readonly id: Prisma.FieldRef<"Utilisateur", 'String'>
   readonly email: Prisma.FieldRef<"Utilisateur", 'String'>
-  readonly mot_de_passe: Prisma.FieldRef<"Utilisateur", 'String'>
-  readonly nom: Prisma.FieldRef<"Utilisateur", 'String'>
+  readonly name: Prisma.FieldRef<"Utilisateur", 'String'>
   readonly cree_le: Prisma.FieldRef<"Utilisateur", 'DateTime'>
 }
     
