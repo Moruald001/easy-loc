@@ -216,6 +216,7 @@ export type LocataireOrderByWithRelationInput = {
 
 export type LocataireWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  appartement_id?: string
   AND?: Prisma.LocataireWhereInput | Prisma.LocataireWhereInput[]
   OR?: Prisma.LocataireWhereInput[]
   NOT?: Prisma.LocataireWhereInput | Prisma.LocataireWhereInput[]
@@ -224,10 +225,9 @@ export type LocataireWhereUniqueInput = Prisma.AtLeast<{
   email?: Prisma.StringFilter<"Locataire"> | string
   telephone?: Prisma.StringFilter<"Locataire"> | string
   statut_actif?: Prisma.BoolFilter<"Locataire"> | boolean
-  appartement_id?: Prisma.StringNullableFilter<"Locataire"> | string | null
   appartement?: Prisma.XOR<Prisma.AppartementNullableScalarRelationFilter, Prisma.AppartementWhereInput> | null
   paiements?: Prisma.PaiementListRelationFilter
-}, "id">
+}, "id" | "appartement_id">
 
 export type LocataireOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

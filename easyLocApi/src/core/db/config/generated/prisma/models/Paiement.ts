@@ -28,18 +28,20 @@ export type AggregatePaiement = {
 
 export type PaiementAvgAggregateOutputType = {
   montant_paye: number | null
+  montant_loyer: number | null
 }
 
 export type PaiementSumAggregateOutputType = {
   montant_paye: number | null
+  montant_loyer: number | null
 }
 
 export type PaiementMinAggregateOutputType = {
   id: string | null
   periode: string | null
   montant_paye: number | null
+  montant_loyer: number | null
   date_encaissement: Date | null
-  methode: string | null
   pdf_nom_fichier: string | null
   locataire_id: string | null
   appartement_id: string | null
@@ -49,8 +51,8 @@ export type PaiementMaxAggregateOutputType = {
   id: string | null
   periode: string | null
   montant_paye: number | null
+  montant_loyer: number | null
   date_encaissement: Date | null
-  methode: string | null
   pdf_nom_fichier: string | null
   locataire_id: string | null
   appartement_id: string | null
@@ -60,8 +62,8 @@ export type PaiementCountAggregateOutputType = {
   id: number
   periode: number
   montant_paye: number
+  montant_loyer: number
   date_encaissement: number
-  methode: number
   pdf_nom_fichier: number
   locataire_id: number
   appartement_id: number
@@ -71,18 +73,20 @@ export type PaiementCountAggregateOutputType = {
 
 export type PaiementAvgAggregateInputType = {
   montant_paye?: true
+  montant_loyer?: true
 }
 
 export type PaiementSumAggregateInputType = {
   montant_paye?: true
+  montant_loyer?: true
 }
 
 export type PaiementMinAggregateInputType = {
   id?: true
   periode?: true
   montant_paye?: true
+  montant_loyer?: true
   date_encaissement?: true
-  methode?: true
   pdf_nom_fichier?: true
   locataire_id?: true
   appartement_id?: true
@@ -92,8 +96,8 @@ export type PaiementMaxAggregateInputType = {
   id?: true
   periode?: true
   montant_paye?: true
+  montant_loyer?: true
   date_encaissement?: true
-  methode?: true
   pdf_nom_fichier?: true
   locataire_id?: true
   appartement_id?: true
@@ -103,8 +107,8 @@ export type PaiementCountAggregateInputType = {
   id?: true
   periode?: true
   montant_paye?: true
+  montant_loyer?: true
   date_encaissement?: true
-  methode?: true
   pdf_nom_fichier?: true
   locataire_id?: true
   appartement_id?: true
@@ -201,9 +205,9 @@ export type PaiementGroupByOutputType = {
   id: string
   periode: string
   montant_paye: number
+  montant_loyer: number
   date_encaissement: Date
-  methode: string
-  pdf_nom_fichier: string
+  pdf_nom_fichier: string | null
   locataire_id: string
   appartement_id: string
   _count: PaiementCountAggregateOutputType | null
@@ -235,9 +239,9 @@ export type PaiementWhereInput = {
   id?: Prisma.StringFilter<"Paiement"> | string
   periode?: Prisma.StringFilter<"Paiement"> | string
   montant_paye?: Prisma.FloatFilter<"Paiement"> | number
+  montant_loyer?: Prisma.FloatFilter<"Paiement"> | number
   date_encaissement?: Prisma.DateTimeFilter<"Paiement"> | Date | string
-  methode?: Prisma.StringFilter<"Paiement"> | string
-  pdf_nom_fichier?: Prisma.StringFilter<"Paiement"> | string
+  pdf_nom_fichier?: Prisma.StringNullableFilter<"Paiement"> | string | null
   locataire_id?: Prisma.StringFilter<"Paiement"> | string
   appartement_id?: Prisma.StringFilter<"Paiement"> | string
   locataire?: Prisma.XOR<Prisma.LocataireScalarRelationFilter, Prisma.LocataireWhereInput>
@@ -248,9 +252,9 @@ export type PaiementOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   periode?: Prisma.SortOrder
   montant_paye?: Prisma.SortOrder
+  montant_loyer?: Prisma.SortOrder
   date_encaissement?: Prisma.SortOrder
-  methode?: Prisma.SortOrder
-  pdf_nom_fichier?: Prisma.SortOrder
+  pdf_nom_fichier?: Prisma.SortOrderInput | Prisma.SortOrder
   locataire_id?: Prisma.SortOrder
   appartement_id?: Prisma.SortOrder
   locataire?: Prisma.LocataireOrderByWithRelationInput
@@ -259,27 +263,28 @@ export type PaiementOrderByWithRelationInput = {
 
 export type PaiementWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  locataire_id_periode?: Prisma.PaiementLocataire_idPeriodeCompoundUniqueInput
   AND?: Prisma.PaiementWhereInput | Prisma.PaiementWhereInput[]
   OR?: Prisma.PaiementWhereInput[]
   NOT?: Prisma.PaiementWhereInput | Prisma.PaiementWhereInput[]
   periode?: Prisma.StringFilter<"Paiement"> | string
   montant_paye?: Prisma.FloatFilter<"Paiement"> | number
+  montant_loyer?: Prisma.FloatFilter<"Paiement"> | number
   date_encaissement?: Prisma.DateTimeFilter<"Paiement"> | Date | string
-  methode?: Prisma.StringFilter<"Paiement"> | string
-  pdf_nom_fichier?: Prisma.StringFilter<"Paiement"> | string
+  pdf_nom_fichier?: Prisma.StringNullableFilter<"Paiement"> | string | null
   locataire_id?: Prisma.StringFilter<"Paiement"> | string
   appartement_id?: Prisma.StringFilter<"Paiement"> | string
   locataire?: Prisma.XOR<Prisma.LocataireScalarRelationFilter, Prisma.LocataireWhereInput>
   appartement?: Prisma.XOR<Prisma.AppartementScalarRelationFilter, Prisma.AppartementWhereInput>
-}, "id">
+}, "id" | "locataire_id_periode">
 
 export type PaiementOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   periode?: Prisma.SortOrder
   montant_paye?: Prisma.SortOrder
+  montant_loyer?: Prisma.SortOrder
   date_encaissement?: Prisma.SortOrder
-  methode?: Prisma.SortOrder
-  pdf_nom_fichier?: Prisma.SortOrder
+  pdf_nom_fichier?: Prisma.SortOrderInput | Prisma.SortOrder
   locataire_id?: Prisma.SortOrder
   appartement_id?: Prisma.SortOrder
   _count?: Prisma.PaiementCountOrderByAggregateInput
@@ -296,9 +301,9 @@ export type PaiementScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Paiement"> | string
   periode?: Prisma.StringWithAggregatesFilter<"Paiement"> | string
   montant_paye?: Prisma.FloatWithAggregatesFilter<"Paiement"> | number
+  montant_loyer?: Prisma.FloatWithAggregatesFilter<"Paiement"> | number
   date_encaissement?: Prisma.DateTimeWithAggregatesFilter<"Paiement"> | Date | string
-  methode?: Prisma.StringWithAggregatesFilter<"Paiement"> | string
-  pdf_nom_fichier?: Prisma.StringWithAggregatesFilter<"Paiement"> | string
+  pdf_nom_fichier?: Prisma.StringNullableWithAggregatesFilter<"Paiement"> | string | null
   locataire_id?: Prisma.StringWithAggregatesFilter<"Paiement"> | string
   appartement_id?: Prisma.StringWithAggregatesFilter<"Paiement"> | string
 }
@@ -307,9 +312,9 @@ export type PaiementCreateInput = {
   id?: string
   periode: string
   montant_paye: number
+  montant_loyer: number
   date_encaissement?: Date | string
-  methode: string
-  pdf_nom_fichier: string
+  pdf_nom_fichier?: string | null
   locataire: Prisma.LocataireCreateNestedOneWithoutPaiementsInput
   appartement: Prisma.AppartementCreateNestedOneWithoutPaiementsInput
 }
@@ -318,9 +323,9 @@ export type PaiementUncheckedCreateInput = {
   id?: string
   periode: string
   montant_paye: number
+  montant_loyer: number
   date_encaissement?: Date | string
-  methode: string
-  pdf_nom_fichier: string
+  pdf_nom_fichier?: string | null
   locataire_id: string
   appartement_id: string
 }
@@ -329,9 +334,9 @@ export type PaiementUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   periode?: Prisma.StringFieldUpdateOperationsInput | string
   montant_paye?: Prisma.FloatFieldUpdateOperationsInput | number
+  montant_loyer?: Prisma.FloatFieldUpdateOperationsInput | number
   date_encaissement?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  methode?: Prisma.StringFieldUpdateOperationsInput | string
-  pdf_nom_fichier?: Prisma.StringFieldUpdateOperationsInput | string
+  pdf_nom_fichier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locataire?: Prisma.LocataireUpdateOneRequiredWithoutPaiementsNestedInput
   appartement?: Prisma.AppartementUpdateOneRequiredWithoutPaiementsNestedInput
 }
@@ -340,9 +345,9 @@ export type PaiementUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   periode?: Prisma.StringFieldUpdateOperationsInput | string
   montant_paye?: Prisma.FloatFieldUpdateOperationsInput | number
+  montant_loyer?: Prisma.FloatFieldUpdateOperationsInput | number
   date_encaissement?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  methode?: Prisma.StringFieldUpdateOperationsInput | string
-  pdf_nom_fichier?: Prisma.StringFieldUpdateOperationsInput | string
+  pdf_nom_fichier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locataire_id?: Prisma.StringFieldUpdateOperationsInput | string
   appartement_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -351,9 +356,9 @@ export type PaiementCreateManyInput = {
   id?: string
   periode: string
   montant_paye: number
+  montant_loyer: number
   date_encaissement?: Date | string
-  methode: string
-  pdf_nom_fichier: string
+  pdf_nom_fichier?: string | null
   locataire_id: string
   appartement_id: string
 }
@@ -362,18 +367,18 @@ export type PaiementUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   periode?: Prisma.StringFieldUpdateOperationsInput | string
   montant_paye?: Prisma.FloatFieldUpdateOperationsInput | number
+  montant_loyer?: Prisma.FloatFieldUpdateOperationsInput | number
   date_encaissement?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  methode?: Prisma.StringFieldUpdateOperationsInput | string
-  pdf_nom_fichier?: Prisma.StringFieldUpdateOperationsInput | string
+  pdf_nom_fichier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PaiementUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   periode?: Prisma.StringFieldUpdateOperationsInput | string
   montant_paye?: Prisma.FloatFieldUpdateOperationsInput | number
+  montant_loyer?: Prisma.FloatFieldUpdateOperationsInput | number
   date_encaissement?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  methode?: Prisma.StringFieldUpdateOperationsInput | string
-  pdf_nom_fichier?: Prisma.StringFieldUpdateOperationsInput | string
+  pdf_nom_fichier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locataire_id?: Prisma.StringFieldUpdateOperationsInput | string
   appartement_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -388,12 +393,17 @@ export type PaiementOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type PaiementLocataire_idPeriodeCompoundUniqueInput = {
+  locataire_id: string
+  periode: string
+}
+
 export type PaiementCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   periode?: Prisma.SortOrder
   montant_paye?: Prisma.SortOrder
+  montant_loyer?: Prisma.SortOrder
   date_encaissement?: Prisma.SortOrder
-  methode?: Prisma.SortOrder
   pdf_nom_fichier?: Prisma.SortOrder
   locataire_id?: Prisma.SortOrder
   appartement_id?: Prisma.SortOrder
@@ -401,14 +411,15 @@ export type PaiementCountOrderByAggregateInput = {
 
 export type PaiementAvgOrderByAggregateInput = {
   montant_paye?: Prisma.SortOrder
+  montant_loyer?: Prisma.SortOrder
 }
 
 export type PaiementMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   periode?: Prisma.SortOrder
   montant_paye?: Prisma.SortOrder
+  montant_loyer?: Prisma.SortOrder
   date_encaissement?: Prisma.SortOrder
-  methode?: Prisma.SortOrder
   pdf_nom_fichier?: Prisma.SortOrder
   locataire_id?: Prisma.SortOrder
   appartement_id?: Prisma.SortOrder
@@ -418,8 +429,8 @@ export type PaiementMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   periode?: Prisma.SortOrder
   montant_paye?: Prisma.SortOrder
+  montant_loyer?: Prisma.SortOrder
   date_encaissement?: Prisma.SortOrder
-  methode?: Prisma.SortOrder
   pdf_nom_fichier?: Prisma.SortOrder
   locataire_id?: Prisma.SortOrder
   appartement_id?: Prisma.SortOrder
@@ -427,6 +438,7 @@ export type PaiementMinOrderByAggregateInput = {
 
 export type PaiementSumOrderByAggregateInput = {
   montant_paye?: Prisma.SortOrder
+  montant_loyer?: Prisma.SortOrder
 }
 
 export type PaiementCreateNestedManyWithoutAppartementInput = {
@@ -517,9 +529,9 @@ export type PaiementCreateWithoutAppartementInput = {
   id?: string
   periode: string
   montant_paye: number
+  montant_loyer: number
   date_encaissement?: Date | string
-  methode: string
-  pdf_nom_fichier: string
+  pdf_nom_fichier?: string | null
   locataire: Prisma.LocataireCreateNestedOneWithoutPaiementsInput
 }
 
@@ -527,9 +539,9 @@ export type PaiementUncheckedCreateWithoutAppartementInput = {
   id?: string
   periode: string
   montant_paye: number
+  montant_loyer: number
   date_encaissement?: Date | string
-  methode: string
-  pdf_nom_fichier: string
+  pdf_nom_fichier?: string | null
   locataire_id: string
 }
 
@@ -565,9 +577,9 @@ export type PaiementScalarWhereInput = {
   id?: Prisma.StringFilter<"Paiement"> | string
   periode?: Prisma.StringFilter<"Paiement"> | string
   montant_paye?: Prisma.FloatFilter<"Paiement"> | number
+  montant_loyer?: Prisma.FloatFilter<"Paiement"> | number
   date_encaissement?: Prisma.DateTimeFilter<"Paiement"> | Date | string
-  methode?: Prisma.StringFilter<"Paiement"> | string
-  pdf_nom_fichier?: Prisma.StringFilter<"Paiement"> | string
+  pdf_nom_fichier?: Prisma.StringNullableFilter<"Paiement"> | string | null
   locataire_id?: Prisma.StringFilter<"Paiement"> | string
   appartement_id?: Prisma.StringFilter<"Paiement"> | string
 }
@@ -576,9 +588,9 @@ export type PaiementCreateWithoutLocataireInput = {
   id?: string
   periode: string
   montant_paye: number
+  montant_loyer: number
   date_encaissement?: Date | string
-  methode: string
-  pdf_nom_fichier: string
+  pdf_nom_fichier?: string | null
   appartement: Prisma.AppartementCreateNestedOneWithoutPaiementsInput
 }
 
@@ -586,9 +598,9 @@ export type PaiementUncheckedCreateWithoutLocataireInput = {
   id?: string
   periode: string
   montant_paye: number
+  montant_loyer: number
   date_encaissement?: Date | string
-  methode: string
-  pdf_nom_fichier: string
+  pdf_nom_fichier?: string | null
   appartement_id: string
 }
 
@@ -621,9 +633,9 @@ export type PaiementCreateManyAppartementInput = {
   id?: string
   periode: string
   montant_paye: number
+  montant_loyer: number
   date_encaissement?: Date | string
-  methode: string
-  pdf_nom_fichier: string
+  pdf_nom_fichier?: string | null
   locataire_id: string
 }
 
@@ -631,9 +643,9 @@ export type PaiementUpdateWithoutAppartementInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   periode?: Prisma.StringFieldUpdateOperationsInput | string
   montant_paye?: Prisma.FloatFieldUpdateOperationsInput | number
+  montant_loyer?: Prisma.FloatFieldUpdateOperationsInput | number
   date_encaissement?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  methode?: Prisma.StringFieldUpdateOperationsInput | string
-  pdf_nom_fichier?: Prisma.StringFieldUpdateOperationsInput | string
+  pdf_nom_fichier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locataire?: Prisma.LocataireUpdateOneRequiredWithoutPaiementsNestedInput
 }
 
@@ -641,9 +653,9 @@ export type PaiementUncheckedUpdateWithoutAppartementInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   periode?: Prisma.StringFieldUpdateOperationsInput | string
   montant_paye?: Prisma.FloatFieldUpdateOperationsInput | number
+  montant_loyer?: Prisma.FloatFieldUpdateOperationsInput | number
   date_encaissement?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  methode?: Prisma.StringFieldUpdateOperationsInput | string
-  pdf_nom_fichier?: Prisma.StringFieldUpdateOperationsInput | string
+  pdf_nom_fichier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locataire_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -651,9 +663,9 @@ export type PaiementUncheckedUpdateManyWithoutAppartementInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   periode?: Prisma.StringFieldUpdateOperationsInput | string
   montant_paye?: Prisma.FloatFieldUpdateOperationsInput | number
+  montant_loyer?: Prisma.FloatFieldUpdateOperationsInput | number
   date_encaissement?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  methode?: Prisma.StringFieldUpdateOperationsInput | string
-  pdf_nom_fichier?: Prisma.StringFieldUpdateOperationsInput | string
+  pdf_nom_fichier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locataire_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -661,9 +673,9 @@ export type PaiementCreateManyLocataireInput = {
   id?: string
   periode: string
   montant_paye: number
+  montant_loyer: number
   date_encaissement?: Date | string
-  methode: string
-  pdf_nom_fichier: string
+  pdf_nom_fichier?: string | null
   appartement_id: string
 }
 
@@ -671,9 +683,9 @@ export type PaiementUpdateWithoutLocataireInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   periode?: Prisma.StringFieldUpdateOperationsInput | string
   montant_paye?: Prisma.FloatFieldUpdateOperationsInput | number
+  montant_loyer?: Prisma.FloatFieldUpdateOperationsInput | number
   date_encaissement?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  methode?: Prisma.StringFieldUpdateOperationsInput | string
-  pdf_nom_fichier?: Prisma.StringFieldUpdateOperationsInput | string
+  pdf_nom_fichier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   appartement?: Prisma.AppartementUpdateOneRequiredWithoutPaiementsNestedInput
 }
 
@@ -681,9 +693,9 @@ export type PaiementUncheckedUpdateWithoutLocataireInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   periode?: Prisma.StringFieldUpdateOperationsInput | string
   montant_paye?: Prisma.FloatFieldUpdateOperationsInput | number
+  montant_loyer?: Prisma.FloatFieldUpdateOperationsInput | number
   date_encaissement?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  methode?: Prisma.StringFieldUpdateOperationsInput | string
-  pdf_nom_fichier?: Prisma.StringFieldUpdateOperationsInput | string
+  pdf_nom_fichier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   appartement_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -691,9 +703,9 @@ export type PaiementUncheckedUpdateManyWithoutLocataireInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   periode?: Prisma.StringFieldUpdateOperationsInput | string
   montant_paye?: Prisma.FloatFieldUpdateOperationsInput | number
+  montant_loyer?: Prisma.FloatFieldUpdateOperationsInput | number
   date_encaissement?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  methode?: Prisma.StringFieldUpdateOperationsInput | string
-  pdf_nom_fichier?: Prisma.StringFieldUpdateOperationsInput | string
+  pdf_nom_fichier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   appartement_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -703,8 +715,8 @@ export type PaiementSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   periode?: boolean
   montant_paye?: boolean
+  montant_loyer?: boolean
   date_encaissement?: boolean
-  methode?: boolean
   pdf_nom_fichier?: boolean
   locataire_id?: boolean
   appartement_id?: boolean
@@ -716,8 +728,8 @@ export type PaiementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   periode?: boolean
   montant_paye?: boolean
+  montant_loyer?: boolean
   date_encaissement?: boolean
-  methode?: boolean
   pdf_nom_fichier?: boolean
   locataire_id?: boolean
   appartement_id?: boolean
@@ -729,8 +741,8 @@ export type PaiementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   periode?: boolean
   montant_paye?: boolean
+  montant_loyer?: boolean
   date_encaissement?: boolean
-  methode?: boolean
   pdf_nom_fichier?: boolean
   locataire_id?: boolean
   appartement_id?: boolean
@@ -742,14 +754,14 @@ export type PaiementSelectScalar = {
   id?: boolean
   periode?: boolean
   montant_paye?: boolean
+  montant_loyer?: boolean
   date_encaissement?: boolean
-  methode?: boolean
   pdf_nom_fichier?: boolean
   locataire_id?: boolean
   appartement_id?: boolean
 }
 
-export type PaiementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "periode" | "montant_paye" | "date_encaissement" | "methode" | "pdf_nom_fichier" | "locataire_id" | "appartement_id", ExtArgs["result"]["paiement"]>
+export type PaiementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "periode" | "montant_paye" | "montant_loyer" | "date_encaissement" | "pdf_nom_fichier" | "locataire_id" | "appartement_id", ExtArgs["result"]["paiement"]>
 export type PaiementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   locataire?: boolean | Prisma.LocataireDefaultArgs<ExtArgs>
   appartement?: boolean | Prisma.AppartementDefaultArgs<ExtArgs>
@@ -773,9 +785,9 @@ export type $PaiementPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: string
     periode: string
     montant_paye: number
+    montant_loyer: number
     date_encaissement: Date
-    methode: string
-    pdf_nom_fichier: string
+    pdf_nom_fichier: string | null
     locataire_id: string
     appartement_id: string
   }, ExtArgs["result"]["paiement"]>
@@ -1206,8 +1218,8 @@ export interface PaiementFieldRefs {
   readonly id: Prisma.FieldRef<"Paiement", 'String'>
   readonly periode: Prisma.FieldRef<"Paiement", 'String'>
   readonly montant_paye: Prisma.FieldRef<"Paiement", 'Float'>
+  readonly montant_loyer: Prisma.FieldRef<"Paiement", 'Float'>
   readonly date_encaissement: Prisma.FieldRef<"Paiement", 'DateTime'>
-  readonly methode: Prisma.FieldRef<"Paiement", 'String'>
   readonly pdf_nom_fichier: Prisma.FieldRef<"Paiement", 'String'>
   readonly locataire_id: Prisma.FieldRef<"Paiement", 'String'>
   readonly appartement_id: Prisma.FieldRef<"Paiement", 'String'>

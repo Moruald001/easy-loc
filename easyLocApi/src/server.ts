@@ -2,6 +2,7 @@ import express from "express";
 import prisma from "./core/prisma";
 import { clerkMiddleware } from "@clerk/express";
 import authRoutes from "./routes/route.auth";
+import paiementsRoutes from "./routes/route.paiement";
 
 const app = express();
 // const router = app.router;
@@ -15,6 +16,7 @@ app.use(clerkMiddleware());
 // routes
 
 app.use("/login", authRoutes);
+app.use("/paiement", paiementsRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "le serveur est en cours d'exécution" });

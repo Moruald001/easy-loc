@@ -107,8 +107,8 @@ export const PaiementScalarFieldEnum = {
   id: 'id',
   periode: 'periode',
   montant_paye: 'montant_paye',
+  montant_loyer: 'montant_loyer',
   date_encaissement: 'date_encaissement',
-  methode: 'methode',
   pdf_nom_fichier: 'pdf_nom_fichier',
   locataire_id: 'locataire_id',
   appartement_id: 'appartement_id'

@@ -29,7 +29,7 @@ export const protect = async (
     },
   });
   if (!info || info?.email !== process.env.authorizeEmail) {
-    res.status(401).json({
+    res.status(403).json({
       success: false,
       message: "Non autorisé",
     });

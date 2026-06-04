@@ -18,7 +18,7 @@ model Utilisateur {
   id             String       @id @default(uuid())
   email        String   @unique 
   name          String?   // Nom ou pseudonyme d'affichage (Optionnel) 
-  cree_le      DateTime @default(now()) @map("cree le") 
+ cree_le DateTime @default(now()) @map("cree_le")
 
   @@map("UTILISATEUR")
 }
@@ -47,7 +47,7 @@ model Locataire {
   statut_actif   Boolean  // True si le locataire occupe le logement actuellement [cite: 9]
   
   // Clé étrangère vers l'appartement [cite: 9]
-  appartement_id String?     @map("appartement_id") 
+  appartement_id String? @unique @map("appartement_id")
   
   // Relation 1:0..1 -> Un appartement ne peut avoir qu'un seul locataire actif à la fois.
   // Le modificateur @unique applique la contrainte d'unicité stricte demandée par le MCD.
@@ -62,11 +62,11 @@ model Locataire {
 /// 4. PAIEMENT (Facture / Quittance)
 model Paiement {
   id                String   @id @default(uuid())  // Identifiant unique universel (UUID) 
-  periode           String    // Mois concerné au format strict YYYY-MM (ex: "2026-05") 
+  periode           String  // Mois concerné au format strict YYYY-MM (ex: "2026-05") 
   montant_paye      Float     // Montant encaissé réel pour l'historique immuable 
+  montant_loyer  Float   // Montant du loyer pour la période (peut différer du montant payé)
   date_encaissement DateTime @default(now())  // Date et heure exactes de validation 
-  methode           String    // Mode de règlement (Espèces, Virement, Cheque) 
-  pdf_nom_fichier   String    // Nom ou chemin du fichier PDF stocké sur le serveur 
+  pdf_nom_fichier   String?    // Nom ou chemin du fichier PDF stocké sur le serveur 
 
   // Lien impératif et immuable vers le locataire ayant payé [cite: 10, 19]
   locataire_id      String      @map("locataire id") 
@@ -76,5 +76,6 @@ model Paiement {
   appartement_id    String      @map("appartement_id") 
   appartement       Appartement @relation(fields: [appartement_id], references: [id], onDelete: Restrict) 
 
+  @@unique([locataire_id, periode])
   @@map("PAIEMENT")
 }
