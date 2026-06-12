@@ -1,0 +1,112 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Saira:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Saira", sans-serif;
+      }
+      h1,
+      h2 {
+        font-family: "Saira", sans-serif;
+      }
+    </style>
+    <title>reçu</title>
+  </head>
+  <body class="m-4 border-2 rounded w-[40em] h-[32em] font-[400]">
+    <h1 class="text-4xl text-center my-4">QUITTANCE DE LOYER</h1>
+    <!-- <hr class="mx-8 text-black" />
+    <hr class="mx-8 text-black" /> -->
+    <!-- premier section -->
+    <section class="w-auto flex justify-between items-center mx-8 my-4">
+      <div class="flex flex-col gap-4">
+        <div class="">
+          <p>Reçu No : {{receiptNumber}}</p>
+
+          <p>Émis le : {{emissionDate}}</p>
+        </div>
+        <div class="">
+          <p>Appartement {{apartmentAddress}}</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="border-1 px-8 py-1 text-center">
+          PERIODE <br />
+          {{rentalPeriod}}
+        </div>
+        <br />
+        <div>
+          <p>
+            LOCATAIRE <br />{{locataireName}} <br />
+            {{locataireContact}}
+          </p>
+        </div>
+      </div>
+    </section>
+    <hr class="border-1 border-dashed mx-8 mb-[0.5px]" />
+
+    <hr class="border-1 border-dashed mx-8 mb-1" />
+
+    <!-- second section -->
+    <section>
+      <table class="w-full border-none">
+        <thead>
+          <tr>
+            <th class="border-1 border-none px-8 text-left font-semibold">
+              DESCRIPTION
+            </th>
+            <th class="border-1 border-none px-8 text-right font-semibold">
+              MONTANT
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td class="border-1 border-none px-8 py-2">Loyer</td>
+            <td class="border-1 border-none px-8 py-2 text-right">
+              {{rentAmount}} FCFA
+            </td>
+          </tr>
+          <tr>
+            <td class="border-1 border-none px-8 py-2">Charges(Ordures+eau)</td>
+            <td class="border-1 border-none px-8 py-2 text-right">
+              {{chargesAmount}} FCFA
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <hr class="border-1 border-1 mx-8 mb-[2px]" />
+    <hr class="border-1 border-dashed mx-8 mb-1" />
+    <!-- third section -->
+    <section>
+      <div class="flex justify-end items-center gap-2 mx-8 my-4">
+        <div class="border-1 border-black px-8 py-1 flex">
+          <p class="text-lg font-semibold">TOTAL :</p>
+
+          <p class="text-lg font-semibold">{{totalAmount}} FCFA</p>
+        </div>
+      </div>
+
+      <div class="flex justify-between mx-8">
+        <p class="w-1/2 text-base/5">
+          Cette quittance certifie le paiement de la somme indiquée pour la
+          periode mentionnée.
+        </p>
+        <p>
+          Le Mandataire <br /><br />
+          <span class="font-bold">___________________</span>
+        </p>
+      </div>
+    </section>
+  </body>
+</html>
