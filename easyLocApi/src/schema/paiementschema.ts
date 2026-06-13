@@ -22,6 +22,9 @@ export const historiquePaiementSchema = z.object({
   params: z.object({
     id: z.string().min(1, "ID de l'appartement requis"),
   }),
+  query: z.object({
+    page: z.coerce.number().int().positive().default(1),
+  }),
 });
 
 export type HistoriquePaiementInput = z.infer<
