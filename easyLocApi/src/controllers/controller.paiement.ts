@@ -3,7 +3,11 @@ import prisma from "../core/prisma";
 import {
   CreerPaiementInput,
   HistoriquePaiementInput,
+  InvoiceID,
 } from "../schema/paiementschema";
+import { generatePDF } from "../utils/pdf-generator";
+import path from "path";
+import fs from "fs";
 
 interface PaiementsHistoryResponse {
   success: boolean;
@@ -14,10 +18,10 @@ interface PaiementsHistoryResponse {
 //récupérer l historique de paiements
 
 export const historiquePaiements = async (
-  req: Request,
+  req: Request<HistoriquePaiementInput, PaiementsHistoryResponse, {}>,
   res: Response<PaiementsHistoryResponse>,
 ): Promise<void> => {
-  const id = req.params.id as string;
+  const id = req.params.id;
   if (!id) {
     res.status(400).json({
       success: false,
@@ -51,7 +55,10 @@ export const historiquePaiements = async (
 };
 
 // effectuer un paiement
-export const creerPaiement = async (req: Request, res: Response) => {
+export const creerPaiement = async (
+  req: Request<{}, {}, CreerPaiementInput>,
+  res: Response,
+) => {
   const { locataire_id, appartement_id, montant, periode } = req.body;
 
   try {
@@ -70,7 +77,7 @@ export const creerPaiement = async (req: Request, res: Response) => {
         throw new Error(`Un paiement existe déjà pour la période ${periode}.`);
       }
 
-      // 2. Récupérer le montant du loyer figé au moment du paiement
+      // 2. Récupérer le loyer figé
       const appartement = await tx.appartement.findUnique({
         where: { id: appartement_id },
         select: { loyer_base: true },
@@ -80,19 +87,37 @@ export const creerPaiement = async (req: Request, res: Response) => {
         throw new Error("Appartement introuvable.");
       }
 
-      // 3. Insérer le paiement avec le montant figé
-      return await tx.paiement.create({
+      // 3. Créer le paiement
+      const nouveauPaiement = await tx.paiement.create({
         data: {
           locataire_id,
           appartement_id,
-          montant_paye: montant, // ← montant réellement versé
-          montant_loyer: appartement.loyer_base, // ← loyer figé au moment du paiement
+          montant_paye: montant,
+          montant_loyer: appartement.loyer_base,
           periode,
-          date_paiement: new Date(),
         },
       });
-    });
 
+      // 4. Générer le PDF
+      const nomFichier = await generatePDF({
+        paiementId: nouveauPaiement.id,
+        locataireId: nouveauPaiement.locataire_id,
+        appartement: appartement_id,
+        montant: nouveauPaiement.montant_paye,
+        charges: 0,
+        periode: nouveauPaiement.periode,
+      });
+
+      if (!nomFichier) throw Error("Error lors de la creation du fichier");
+
+      // 5. Mettre à jour le nom du fichier PDF
+      return await tx.paiement.update({
+        where: { id: nouveauPaiement.id },
+        data: { pdf_nom_fichier: nomFichier },
+      });
+    }); // ← fin transaction
+
+    // 6. Réponse en dehors de la transaction
     res.status(201).json({
       success: true,
       data: paiement,
@@ -111,4 +136,37 @@ export const creerPaiement = async (req: Request, res: Response) => {
       message: "Erreur serveur.",
     });
   }
+};
+// telecharger le recu correspondant au paiement
+
+export const getInvoicePdf = async (
+  req: Request<InvoiceID, {}, {}>,
+  res: Response,
+): Promise<void> => {
+  const paiementId = req.params.id;
+
+  const paiement = await prisma.paiement.findUnique({
+    where: { id: paiementId },
+    select: { pdf_nom_fichier: true },
+  });
+  // Vérifier que le paiement existe et a un PDF
+  if (!paiement || !paiement.pdf_nom_fichier) {
+    res.status(404).json({
+      success: false,
+      message: "Reçu introuvable.",
+    });
+    return;
+  }
+
+  const fichier = path.join(
+    __dirname,
+    `../storage/paiement/${paiement.pdf_nom_fichier}`,
+  );
+
+  if (!fs.existsSync(fichier)) {
+    res.status(404).json({ success: false, message: "Fichier introuvable." });
+    return;
+  }
+
+  res.download(fichier);
 };
