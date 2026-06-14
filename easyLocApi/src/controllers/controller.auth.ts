@@ -16,6 +16,12 @@ export const login = async (req: Request, res: Response) => {
   const user = await clerkClient.users.getUser(userId);
 
   const emailSend = user.emailAddresses[0].emailAddress;
+  if (emailSend !== process.env.AUTHORIZE_EMAIL) {
+    res
+      .status(401)
+      .json({ message: "acces interdis , vous ne pouvez pas vous connecter" });
+    return;
+  }
   const name = user.fullName;
 
   const info = await prisma.utilisateur.upsert({
@@ -50,7 +56,6 @@ export const deleted = async (req: Request, res: Response) => {
   const user = await clerkClient.users.getUser(userId);
 
   const emailSend = user.emailAddresses[0].emailAddress;
-  const name = user.fullName;
 
   const info = await prisma.utilisateur.delete({
     where: {

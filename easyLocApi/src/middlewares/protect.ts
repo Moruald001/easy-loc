@@ -1,6 +1,5 @@
 import { clerkClient, getAuth } from "@clerk/express";
 import { NextFunction, Request, Response } from "express";
-import prisma from "../core/prisma";
 
 export const protect = async (
   req: Request,
@@ -20,16 +19,8 @@ export const protect = async (
 
   const emailSend = user.emailAddresses[0].emailAddress;
 
-  const info: { email: string } | null = await prisma.utilisateur.findUnique({
-    where: {
-      email: emailSend,
-    },
-    select: {
-      email: true,
-    },
-  });
-  if (!info || info?.email !== process.env.authorizeEmail) {
-    res.status(403).json({
+  if (emailSend !== process.env.AUTHORIZE_EMAIL) {
+    res.status(401).json({
       success: false,
       message: "Non autorisé",
     });
