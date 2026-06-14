@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { protect } from "../middlewares/protect";
 import { login, deleted } from "../controllers/controller.auth";
+import { authLimiter } from "../utils/rateLimiter";
 
 const route = Router();
 
@@ -39,7 +40,7 @@ const route = Router();
  *       401:
  *         description: Non autorisé
  */
-route.get("/login", login);
+route.get("/login", authLimiter, login);
 
 /**
  * @swagger

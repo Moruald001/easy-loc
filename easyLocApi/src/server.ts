@@ -3,12 +3,15 @@ import prisma from "./core/prisma";
 import { clerkMiddleware } from "@clerk/express";
 import authRoutes from "./routes/route.auth";
 import paiementsRoutes from "./routes/route.paiement";
+import proprieteRoutes from "./routes/route.addPropriete";
+import locataireRoutes from "./routes/route.addLoca";
 import morgan from "morgan";
 import { createStream } from "rotating-file-stream";
 import path from "path";
 import fs from "fs";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./utils/swagger";
+import { rateLimiter } from "./utils/rateLimiter";
 
 // Créer le dossier logs si inexistant
 const logDir = path.join(process.cwd(), "logs");
@@ -43,10 +46,16 @@ app.use(express.json());
 app.use(clerkMiddleware());
 
 // routes
+// Global — toutes les routes
+app.use(rateLimiter);
+
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.use("/login", authRoutes);
-app.use("/paiement", paiementsRoutes);
+app.use(authRoutes);
+app.use(proprieteRoutes);
+app.use(locataireRoutes);
+
+app.use(paiementsRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "le serveur est en cours d'exécution" });
