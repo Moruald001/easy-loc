@@ -30,7 +30,7 @@ export type LocataireMinAggregateOutputType = {
   prenom: string | null
   email: string | null
   telephone: string | null
-  statut_actif: boolean | null
+  supprime_le: Date | null
   appartement_id: string | null
 }
 
@@ -40,7 +40,7 @@ export type LocataireMaxAggregateOutputType = {
   prenom: string | null
   email: string | null
   telephone: string | null
-  statut_actif: boolean | null
+  supprime_le: Date | null
   appartement_id: string | null
 }
 
@@ -50,7 +50,7 @@ export type LocataireCountAggregateOutputType = {
   prenom: number
   email: number
   telephone: number
-  statut_actif: number
+  supprime_le: number
   appartement_id: number
   _all: number
 }
@@ -62,7 +62,7 @@ export type LocataireMinAggregateInputType = {
   prenom?: true
   email?: true
   telephone?: true
-  statut_actif?: true
+  supprime_le?: true
   appartement_id?: true
 }
 
@@ -72,7 +72,7 @@ export type LocataireMaxAggregateInputType = {
   prenom?: true
   email?: true
   telephone?: true
-  statut_actif?: true
+  supprime_le?: true
   appartement_id?: true
 }
 
@@ -82,7 +82,7 @@ export type LocataireCountAggregateInputType = {
   prenom?: true
   email?: true
   telephone?: true
-  statut_actif?: true
+  supprime_le?: true
   appartement_id?: true
   _all?: true
 }
@@ -165,7 +165,7 @@ export type LocataireGroupByOutputType = {
   prenom: string
   email: string
   telephone: string
-  statut_actif: boolean
+  supprime_le: Date | null
   appartement_id: string | null
   _count: LocataireCountAggregateOutputType | null
   _min: LocataireMinAggregateOutputType | null
@@ -196,7 +196,7 @@ export type LocataireWhereInput = {
   prenom?: Prisma.StringFilter<"Locataire"> | string
   email?: Prisma.StringFilter<"Locataire"> | string
   telephone?: Prisma.StringFilter<"Locataire"> | string
-  statut_actif?: Prisma.BoolFilter<"Locataire"> | boolean
+  supprime_le?: Prisma.DateTimeNullableFilter<"Locataire"> | Date | string | null
   appartement_id?: Prisma.StringNullableFilter<"Locataire"> | string | null
   appartement?: Prisma.XOR<Prisma.AppartementNullableScalarRelationFilter, Prisma.AppartementWhereInput> | null
   paiements?: Prisma.PaiementListRelationFilter
@@ -208,7 +208,7 @@ export type LocataireOrderByWithRelationInput = {
   prenom?: Prisma.SortOrder
   email?: Prisma.SortOrder
   telephone?: Prisma.SortOrder
-  statut_actif?: Prisma.SortOrder
+  supprime_le?: Prisma.SortOrderInput | Prisma.SortOrder
   appartement_id?: Prisma.SortOrderInput | Prisma.SortOrder
   appartement?: Prisma.AppartementOrderByWithRelationInput
   paiements?: Prisma.PaiementOrderByRelationAggregateInput
@@ -216,18 +216,18 @@ export type LocataireOrderByWithRelationInput = {
 
 export type LocataireWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  email?: string
   appartement_id?: string
   AND?: Prisma.LocataireWhereInput | Prisma.LocataireWhereInput[]
   OR?: Prisma.LocataireWhereInput[]
   NOT?: Prisma.LocataireWhereInput | Prisma.LocataireWhereInput[]
   nom?: Prisma.StringFilter<"Locataire"> | string
   prenom?: Prisma.StringFilter<"Locataire"> | string
-  email?: Prisma.StringFilter<"Locataire"> | string
   telephone?: Prisma.StringFilter<"Locataire"> | string
-  statut_actif?: Prisma.BoolFilter<"Locataire"> | boolean
+  supprime_le?: Prisma.DateTimeNullableFilter<"Locataire"> | Date | string | null
   appartement?: Prisma.XOR<Prisma.AppartementNullableScalarRelationFilter, Prisma.AppartementWhereInput> | null
   paiements?: Prisma.PaiementListRelationFilter
-}, "id" | "appartement_id">
+}, "id" | "email" | "appartement_id">
 
 export type LocataireOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -235,7 +235,7 @@ export type LocataireOrderByWithAggregationInput = {
   prenom?: Prisma.SortOrder
   email?: Prisma.SortOrder
   telephone?: Prisma.SortOrder
-  statut_actif?: Prisma.SortOrder
+  supprime_le?: Prisma.SortOrderInput | Prisma.SortOrder
   appartement_id?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.LocataireCountOrderByAggregateInput
   _max?: Prisma.LocataireMaxOrderByAggregateInput
@@ -251,7 +251,7 @@ export type LocataireScalarWhereWithAggregatesInput = {
   prenom?: Prisma.StringWithAggregatesFilter<"Locataire"> | string
   email?: Prisma.StringWithAggregatesFilter<"Locataire"> | string
   telephone?: Prisma.StringWithAggregatesFilter<"Locataire"> | string
-  statut_actif?: Prisma.BoolWithAggregatesFilter<"Locataire"> | boolean
+  supprime_le?: Prisma.DateTimeNullableWithAggregatesFilter<"Locataire"> | Date | string | null
   appartement_id?: Prisma.StringNullableWithAggregatesFilter<"Locataire"> | string | null
 }
 
@@ -261,7 +261,7 @@ export type LocataireCreateInput = {
   prenom: string
   email: string
   telephone: string
-  statut_actif: boolean
+  supprime_le?: Date | string | null
   appartement?: Prisma.AppartementCreateNestedOneWithoutLocatairesInput
   paiements?: Prisma.PaiementCreateNestedManyWithoutLocataireInput
 }
@@ -272,7 +272,7 @@ export type LocataireUncheckedCreateInput = {
   prenom: string
   email: string
   telephone: string
-  statut_actif: boolean
+  supprime_le?: Date | string | null
   appartement_id?: string | null
   paiements?: Prisma.PaiementUncheckedCreateNestedManyWithoutLocataireInput
 }
@@ -283,7 +283,7 @@ export type LocataireUpdateInput = {
   prenom?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   telephone?: Prisma.StringFieldUpdateOperationsInput | string
-  statut_actif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  supprime_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appartement?: Prisma.AppartementUpdateOneWithoutLocatairesNestedInput
   paiements?: Prisma.PaiementUpdateManyWithoutLocataireNestedInput
 }
@@ -294,7 +294,7 @@ export type LocataireUncheckedUpdateInput = {
   prenom?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   telephone?: Prisma.StringFieldUpdateOperationsInput | string
-  statut_actif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  supprime_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appartement_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paiements?: Prisma.PaiementUncheckedUpdateManyWithoutLocataireNestedInput
 }
@@ -305,7 +305,7 @@ export type LocataireCreateManyInput = {
   prenom: string
   email: string
   telephone: string
-  statut_actif: boolean
+  supprime_le?: Date | string | null
   appartement_id?: string | null
 }
 
@@ -315,7 +315,7 @@ export type LocataireUpdateManyMutationInput = {
   prenom?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   telephone?: Prisma.StringFieldUpdateOperationsInput | string
-  statut_actif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  supprime_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type LocataireUncheckedUpdateManyInput = {
@@ -324,7 +324,7 @@ export type LocataireUncheckedUpdateManyInput = {
   prenom?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   telephone?: Prisma.StringFieldUpdateOperationsInput | string
-  statut_actif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  supprime_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appartement_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -344,7 +344,7 @@ export type LocataireCountOrderByAggregateInput = {
   prenom?: Prisma.SortOrder
   email?: Prisma.SortOrder
   telephone?: Prisma.SortOrder
-  statut_actif?: Prisma.SortOrder
+  supprime_le?: Prisma.SortOrder
   appartement_id?: Prisma.SortOrder
 }
 
@@ -354,7 +354,7 @@ export type LocataireMaxOrderByAggregateInput = {
   prenom?: Prisma.SortOrder
   email?: Prisma.SortOrder
   telephone?: Prisma.SortOrder
-  statut_actif?: Prisma.SortOrder
+  supprime_le?: Prisma.SortOrder
   appartement_id?: Prisma.SortOrder
 }
 
@@ -364,7 +364,7 @@ export type LocataireMinOrderByAggregateInput = {
   prenom?: Prisma.SortOrder
   email?: Prisma.SortOrder
   telephone?: Prisma.SortOrder
-  statut_actif?: Prisma.SortOrder
+  supprime_le?: Prisma.SortOrder
   appartement_id?: Prisma.SortOrder
 }
 
@@ -415,10 +415,6 @@ export type LocataireUncheckedUpdateManyWithoutAppartementNestedInput = {
   deleteMany?: Prisma.LocataireScalarWhereInput | Prisma.LocataireScalarWhereInput[]
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type LocataireCreateNestedOneWithoutPaiementsInput = {
   create?: Prisma.XOR<Prisma.LocataireCreateWithoutPaiementsInput, Prisma.LocataireUncheckedCreateWithoutPaiementsInput>
   connectOrCreate?: Prisma.LocataireCreateOrConnectWithoutPaiementsInput
@@ -439,7 +435,7 @@ export type LocataireCreateWithoutAppartementInput = {
   prenom: string
   email: string
   telephone: string
-  statut_actif: boolean
+  supprime_le?: Date | string | null
   paiements?: Prisma.PaiementCreateNestedManyWithoutLocataireInput
 }
 
@@ -449,7 +445,7 @@ export type LocataireUncheckedCreateWithoutAppartementInput = {
   prenom: string
   email: string
   telephone: string
-  statut_actif: boolean
+  supprime_le?: Date | string | null
   paiements?: Prisma.PaiementUncheckedCreateNestedManyWithoutLocataireInput
 }
 
@@ -487,7 +483,7 @@ export type LocataireScalarWhereInput = {
   prenom?: Prisma.StringFilter<"Locataire"> | string
   email?: Prisma.StringFilter<"Locataire"> | string
   telephone?: Prisma.StringFilter<"Locataire"> | string
-  statut_actif?: Prisma.BoolFilter<"Locataire"> | boolean
+  supprime_le?: Prisma.DateTimeNullableFilter<"Locataire"> | Date | string | null
   appartement_id?: Prisma.StringNullableFilter<"Locataire"> | string | null
 }
 
@@ -497,7 +493,7 @@ export type LocataireCreateWithoutPaiementsInput = {
   prenom: string
   email: string
   telephone: string
-  statut_actif: boolean
+  supprime_le?: Date | string | null
   appartement?: Prisma.AppartementCreateNestedOneWithoutLocatairesInput
 }
 
@@ -507,7 +503,7 @@ export type LocataireUncheckedCreateWithoutPaiementsInput = {
   prenom: string
   email: string
   telephone: string
-  statut_actif: boolean
+  supprime_le?: Date | string | null
   appartement_id?: string | null
 }
 
@@ -533,7 +529,7 @@ export type LocataireUpdateWithoutPaiementsInput = {
   prenom?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   telephone?: Prisma.StringFieldUpdateOperationsInput | string
-  statut_actif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  supprime_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appartement?: Prisma.AppartementUpdateOneWithoutLocatairesNestedInput
 }
 
@@ -543,7 +539,7 @@ export type LocataireUncheckedUpdateWithoutPaiementsInput = {
   prenom?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   telephone?: Prisma.StringFieldUpdateOperationsInput | string
-  statut_actif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  supprime_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appartement_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -553,7 +549,7 @@ export type LocataireCreateManyAppartementInput = {
   prenom: string
   email: string
   telephone: string
-  statut_actif: boolean
+  supprime_le?: Date | string | null
 }
 
 export type LocataireUpdateWithoutAppartementInput = {
@@ -562,7 +558,7 @@ export type LocataireUpdateWithoutAppartementInput = {
   prenom?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   telephone?: Prisma.StringFieldUpdateOperationsInput | string
-  statut_actif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  supprime_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paiements?: Prisma.PaiementUpdateManyWithoutLocataireNestedInput
 }
 
@@ -572,7 +568,7 @@ export type LocataireUncheckedUpdateWithoutAppartementInput = {
   prenom?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   telephone?: Prisma.StringFieldUpdateOperationsInput | string
-  statut_actif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  supprime_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paiements?: Prisma.PaiementUncheckedUpdateManyWithoutLocataireNestedInput
 }
 
@@ -582,7 +578,7 @@ export type LocataireUncheckedUpdateManyWithoutAppartementInput = {
   prenom?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   telephone?: Prisma.StringFieldUpdateOperationsInput | string
-  statut_actif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  supprime_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -622,7 +618,7 @@ export type LocataireSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   prenom?: boolean
   email?: boolean
   telephone?: boolean
-  statut_actif?: boolean
+  supprime_le?: boolean
   appartement_id?: boolean
   appartement?: boolean | Prisma.Locataire$appartementArgs<ExtArgs>
   paiements?: boolean | Prisma.Locataire$paiementsArgs<ExtArgs>
@@ -635,7 +631,7 @@ export type LocataireSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   prenom?: boolean
   email?: boolean
   telephone?: boolean
-  statut_actif?: boolean
+  supprime_le?: boolean
   appartement_id?: boolean
   appartement?: boolean | Prisma.Locataire$appartementArgs<ExtArgs>
 }, ExtArgs["result"]["locataire"]>
@@ -646,7 +642,7 @@ export type LocataireSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   prenom?: boolean
   email?: boolean
   telephone?: boolean
-  statut_actif?: boolean
+  supprime_le?: boolean
   appartement_id?: boolean
   appartement?: boolean | Prisma.Locataire$appartementArgs<ExtArgs>
 }, ExtArgs["result"]["locataire"]>
@@ -657,11 +653,11 @@ export type LocataireSelectScalar = {
   prenom?: boolean
   email?: boolean
   telephone?: boolean
-  statut_actif?: boolean
+  supprime_le?: boolean
   appartement_id?: boolean
 }
 
-export type LocataireOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nom" | "prenom" | "email" | "telephone" | "statut_actif" | "appartement_id", ExtArgs["result"]["locataire"]>
+export type LocataireOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nom" | "prenom" | "email" | "telephone" | "supprime_le" | "appartement_id", ExtArgs["result"]["locataire"]>
 export type LocataireInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   appartement?: boolean | Prisma.Locataire$appartementArgs<ExtArgs>
   paiements?: boolean | Prisma.Locataire$paiementsArgs<ExtArgs>
@@ -686,7 +682,7 @@ export type $LocatairePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     prenom: string
     email: string
     telephone: string
-    statut_actif: boolean
+    supprime_le: Date | null
     appartement_id: string | null
   }, ExtArgs["result"]["locataire"]>
   composites: {}
@@ -1118,7 +1114,7 @@ export interface LocataireFieldRefs {
   readonly prenom: Prisma.FieldRef<"Locataire", 'String'>
   readonly email: Prisma.FieldRef<"Locataire", 'String'>
   readonly telephone: Prisma.FieldRef<"Locataire", 'String'>
-  readonly statut_actif: Prisma.FieldRef<"Locataire", 'Boolean'>
+  readonly supprime_le: Prisma.FieldRef<"Locataire", 'DateTime'>
   readonly appartement_id: Prisma.FieldRef<"Locataire", 'String'>
 }
     

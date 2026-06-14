@@ -1,12 +1,11 @@
-import express from "express";
 import { Router } from "express";
 import { protect } from "../middlewares/protect";
-import * as auth from "../controllers/controller.auth";
+import { login, deleted } from "../controllers/controller.auth";
 
 const route = Router();
 
-route.get("/login ", auth.login);
+route.get("/login ", login);
 
-route.patch("/deleted", protect, auth.deleted);
+route.patch("/deleted", protect, deleted);
 
 export default route;

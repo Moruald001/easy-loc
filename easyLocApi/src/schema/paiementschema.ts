@@ -1,4 +1,3 @@
-// src/validators/paiement.validator.ts
 import { z } from "zod";
 
 export const creerPaiementSchema = z.object({

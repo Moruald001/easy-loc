@@ -29,6 +29,9 @@ model Appartement {
   nom         String    // ex: "Appartement A", "Studio 1" 
   description String?   // Notes optionnelles sur le logement 
   loyer_base  Float     // Montant du loyer par défaut 
+  status   Boolean  // True si le locataire occupe le logement actuellement 
+  supprime_le DateTime?
+
   
   // Relations
   locataires  Locataire[] // Relation 1:0..1 
@@ -41,11 +44,10 @@ model Appartement {
 model Locataire {
   id             String       @id @default(uuid())
   nom            String  
-  prenom         String  
-  email          String   // Pour l'envoi des reçus [cite: 9]
+  prenom         String       
+  email          String   @unique// Pour l'envoi des reçus [cite: 9]
   telephone      String  
-  statut_actif   Boolean  // True si le locataire occupe le logement actuellement [cite: 9]
-  
+  supprime_le DateTime?
   // Clé étrangère vers l'appartement [cite: 9]
   appartement_id String? @unique @map("appartement_id")
   

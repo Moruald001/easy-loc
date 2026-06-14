@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "APPARTEMENT" ADD COLUMN "supprime_le" DATETIME;
+
+-- AlterTable
+ALTER TABLE "LOCATAIRE" ADD COLUMN "supprime_le" DATETIME;

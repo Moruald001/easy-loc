@@ -84,7 +84,9 @@ export const AppartementScalarFieldEnum = {
   id: 'id',
   nom: 'nom',
   description: 'description',
-  loyer_base: 'loyer_base'
+  loyer_base: 'loyer_base',
+  status: 'status',
+  supprime_le: 'supprime_le'
 } as const
 
 export type AppartementScalarFieldEnum = (typeof AppartementScalarFieldEnum)[keyof typeof AppartementScalarFieldEnum]
@@ -96,7 +98,7 @@ export const LocataireScalarFieldEnum = {
   prenom: 'prenom',
   email: 'email',
   telephone: 'telephone',
-  statut_actif: 'statut_actif',
+  supprime_le: 'supprime_le',
   appartement_id: 'appartement_id'
 } as const
 
