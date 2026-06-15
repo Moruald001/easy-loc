@@ -1,3 +1,4 @@
+import "./core/env";
 import express from "express";
 import prisma from "./core/prisma";
 import { clerkMiddleware } from "@clerk/express";
@@ -12,6 +13,9 @@ import fs from "fs";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./utils/swagger";
 import { rateLimiter } from "./utils/rateLimiter";
+import helmet from "helmet";
+import { errorHandler } from "./middlewares/errorHandler";
+import cors from "cors";
 
 // Créer le dossier logs si inexistant
 const logDir = path.join(process.cwd(), "logs");
@@ -45,22 +49,35 @@ if (process.env.NODE_ENV === "production") {
 app.use(express.json());
 app.use(clerkMiddleware());
 
-// routes
-// Global — toutes les routes
+app.use(helmet()); // ← sécurise les headers HTTP
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL, // ← autorise uniquement ton frontend
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+  }),
+);
+
+//rate limit
 app.use(rateLimiter);
-
+//documentation
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
+//routes
 app.use(authRoutes);
 app.use(proprieteRoutes);
 app.use(locataireRoutes);
-
 app.use(paiementsRoutes);
-
 app.get("/", (req, res) => {
   res.json({ message: "le serveur est en cours d'exécution" });
 });
-
+// route 404
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `Route ${req.method} ${req.url} introuvable.`,
+  });
+});
+//gestion d'erreur
+app.use(errorHandler);
 async function startServer() {
   try {
     prisma.$connect();
