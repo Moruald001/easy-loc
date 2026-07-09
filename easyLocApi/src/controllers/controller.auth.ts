@@ -19,7 +19,7 @@ export const login = async (req: Request, res: Response) => {
   if (emailSend !== process.env.AUTHORIZE_EMAIL) {
     res
       .status(401)
-      .json({ message: "acces interdis , vous ne pouvez pas vous connecter" });
+      .json({ message: "acc es interdis , vous ne pouvez pas vous connecter" });
     return;
   }
   const name = user.fullName;

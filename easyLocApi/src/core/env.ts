@@ -1,6 +1,7 @@
 import "dotenv/config";
 const requiredEnvs = [
   "DATABASE_URL",
+  "CLERK_PUBLISHABLE_KEY",
   "CLERK_SECRET_KEY",
   "AUTHORIZE_EMAIL",
   "NODE_ENV",
