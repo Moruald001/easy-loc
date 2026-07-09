@@ -35,7 +35,7 @@ export default function NavBar() {
   const location = useUrl();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 px-6 pt-6 flex items-center justify-between bg-white/90 shadow-md backdrop-blur-md  border-t border-gray-200">
+    <div className="fixed bottom-4 left-4 right-4 px-6 pt-6 flex items-center justify-between bg-transparent shadow-md backdrop-blur-md  border-t border-gray-200 rounded-4xl">
       {tabs.map((tab) => {
         const Icon = tab.icon;
         const isActive = location.pathname === tab.path;
@@ -49,14 +49,14 @@ export default function NavBar() {
             <div className="flex flex-col items-center gap-1">
               <Icon
                 className={`
-                  transition-all duration-300
+                  transition-all duration-300 scale-70
                   ${isActive ? "text-primary-600 scale-110" : "text-gray-500"}
                 `}
               />
 
               <h1
                 className={`
-                  text-sm font-thin transition-colors duration-300
+                  text-[10px] font-sans transition-colors duration-300
                   ${isActive ? "text-primary-600" : "text-text-secondary"}
                 `}
               >

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tailwindcss";
 
 #root {
   min-height: 100%;
@@ -25,4 +26,7 @@ body {
   --text-secondary: black;
 
   --color-accent: #06b6d4;
+  --font-sans: "Geist", sans-serif;
+  --font-display: "DM Serif Display", serif;
+  --font-mono: "DM Mono", monospace;
 }

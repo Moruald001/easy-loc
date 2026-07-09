@@ -46,6 +46,7 @@ export default function Logo() {
           font-size="84"
           font-weight="500"
           fill="#555555"
+          className="font-display"
         >
           Easy-Loc
         </text>
