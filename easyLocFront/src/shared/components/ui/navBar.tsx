@@ -35,7 +35,7 @@ export default function NavBar() {
   const location = useUrl();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 px-6 pt-6 flex items-center justify-between bg-white/90 shadow-md backdrop-blur-md">
+    <div className="fixed bottom-0 left-0 right-0 px-6 pt-6 flex items-center justify-between bg-white/90 shadow-md backdrop-blur-md  border-t border-gray-200">
       {tabs.map((tab) => {
         const Icon = tab.icon;
         const isActive = location.pathname === tab.path;
