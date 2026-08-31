@@ -6,8 +6,8 @@ import Loading from "@/features/loading/loading";
 import Dashboard from "@/features/dashboard/Dashboard";
 import { MainLayout } from "@/shared/layouts/MainLayout";
 import Locataires from "./features/locataires/components/Locataires";
-import Proprietes from "./features/proprietes/components/proprietes";
-import Paiements from "./features/paiements/components/paiements";
+import Proprietes from "@/features/proprietes/components/Proprietes";
+import Paiements from "@/features/paiements/components/Paiements";
 function App() {
   return (
     <Routes>

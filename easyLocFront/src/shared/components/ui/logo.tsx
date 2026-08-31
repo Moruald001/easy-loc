@@ -11,9 +11,9 @@ export default function Logo() {
           d="M170 130 L300 40 L430 130"
           fill="none"
           stroke="#555555"
-          stroke-width="16"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="16"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
 
         <line
@@ -22,7 +22,7 @@ export default function Logo() {
           x2="170"
           y2="175"
           stroke="#555555"
-          stroke-width="16"
+          strokeWidth="16"
         />
         <line
           x1="430"
@@ -30,7 +30,7 @@ export default function Logo() {
           x2="430"
           y2="175"
           stroke="#555555"
-          stroke-width="16"
+          strokeWidth="16"
         />
 
         <rect x="275" y="110" width="18" height="18" fill="#555555" />
@@ -38,16 +38,16 @@ export default function Logo() {
         <rect x="275" y="142" width="18" height="18" fill="#555555" />
         <rect x="307" y="142" width="18" height="18" fill="#555555" />
 
-        <text
-          x="300"
-          y="290"
-          text-anchor="middle"
-          font-family="Arial, Helvetica, sans-serif"
-          font-size="84"
-          font-weight="500"
-          fill="#555555"
-          className="font-display"
-        >
+    <text
+  x="300"
+  y="290"
+  textAnchor="middle"
+  fontFamily="Arial, Helvetica, sans-serif"
+  fontSize="84"
+  fontWeight="500"
+  fill="#555555"
+  className="font-display"
+>
           Easy-Loc
         </text>
       </svg>
